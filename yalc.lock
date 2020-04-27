@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "web-audio-hooks": {
+      "signature": "01270136658dd9c0d75a6e37a54b73ed",
+      "file": true
+    }
+  }
+}

@@ -1,3 +1,11 @@
+# web-audio-hooks-examples
+
+Examples for @jebeck's [https://github.com/jebeck/web-audio-hooks](web-audio-hooks) React hooks library
+
+The [audion](https://github.com/google/audion) Web Audio Inspector is recommended, and NB that you must build this yourself following the instructions in the README, as the version in the Chrome Web Store is badly out of date and does not work.
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
