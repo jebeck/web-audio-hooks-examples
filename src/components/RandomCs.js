@@ -11,7 +11,7 @@ function getAC() {
 
 const log = bows('RandomCs');
 
-function RandomCs() {
+export default function RandomCs() {
   log('rendered');
 
   const [frequency, setFrequency] = useState(getAC());
@@ -24,5 +24,3 @@ function RandomCs() {
 
   return <Oscillator frequency={frequency} />;
 }
-
-export default RandomCs;

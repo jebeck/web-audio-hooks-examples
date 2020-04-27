@@ -1,6 +1,7 @@
 import React from 'react';
 import bows from 'bows';
 
+import AudioVisual from './components/AudioVisual';
 import UserStream from './components/UserStream';
 import Oscillator from './components/Oscillator';
 import RandomCs from './components/RandomCs';
@@ -12,7 +13,9 @@ function NoiseMakers() {
 
   return (
     <>
-      <Oscillator />
+      <AudioVisual>
+        <Oscillator />
+      </AudioVisual>
       <RandomCs />
       <UserStream />
     </>

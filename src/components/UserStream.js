@@ -4,7 +4,7 @@ import { useAudioContext, useAudioStream } from 'web-audio-hooks';
 
 import PlayToggle from './PlayToggle';
 
-function UserStream() {
+export default function UserStream() {
   const { getContext, isCurrentlyPlaying, pause, play } = useAudioContext();
   useAudioStream({ audioCtx: getContext() });
 
@@ -22,5 +22,3 @@ function UserStream() {
     </div>
   );
 }
-
-export default UserStream;
