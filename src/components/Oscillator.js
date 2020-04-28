@@ -6,16 +6,13 @@ import {
   useAudioContext,
   useGain,
   useOscillator,
-  useTimeDomainData,
 } from 'web-audio-hooks';
 
-import { OscilloscopeWorker } from 'web-audio-hooks/dist/workers';
+import { Oscilloscope } from 'web-audio-hooks/dist/lib';
 
 import PlayToggle from './PlayToggle';
 
 const log = bows('Oscillator');
-
-const workerOptions = { bg: 'PapayaWhip', stroke: 'DeepPink' };
 
 export default function Oscillator({ canvasRef, frequency }) {
   log(`[${frequency || 440}Hz] rendered`);
@@ -27,12 +24,6 @@ export default function Oscillator({ canvasRef, frequency }) {
 
   const { getContext, isCurrentlyPlaying, pause, play } = useAudioContext();
   const { getAnalyser } = useAnalyser({ audioCtx: getContext() });
-  useTimeDomainData({
-    analyser: getAnalyser(),
-    canvasRef,
-    Worker: OscilloscopeWorker,
-    workerOptions,
-  });
   const { getGain } = useGain({
     audioCtx: getContext(),
     destination: getAnalyser(),
@@ -46,6 +37,7 @@ export default function Oscillator({ canvasRef, frequency }) {
 
   return (
     <div>
+      <Oscilloscope analyser={getAnalyser()} position={{ right: 0, top: 0 }} />
       <h1>{`oscillator @ ${frequency || 440}Hz`}</h1>
       <PlayToggle
         isCurrentlyPlaying={isCurrentlyPlaying}
