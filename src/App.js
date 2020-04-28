@@ -1,14 +1,48 @@
 import React from 'react';
-import bows from 'bows';
+import { Router } from '@reach/router';
 
-import NoiseMakers from './NoiseMakers';
+import Index, { PAGES } from './pages/Index';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-const log = bows('App');
+export default function App() {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  console.log(prefersDarkMode);
 
-function App() {
-  log('rendered');
+  const theme = React.useMemo(
+    () =>
+      createMuiTheme({
+        palette: {
+          type: prefersDarkMode ? 'dark' : 'light',
+        },
+      }),
+    [prefersDarkMode]
+  );
 
-  return <NoiseMakers />;
+  return (
+    <>
+      <h1
+        style={{
+          color: 'cyan',
+          fontSize: '3rem',
+          fontStyle: 'italic',
+          marginTop: '-0.5rem',
+          position: 'fixed',
+          top: 0,
+          right: 0,
+          textDecoration: 'deeppink double underline',
+        }}
+      >
+        using web audio hooks
+      </h1>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Index default />
+          {PAGES.map(({ Component, path }) => (
+            <Component key={path} path={path} />
+          ))}
+        </Router>
+      </ThemeProvider>
+    </>
+  );
 }
-
-export default App;
