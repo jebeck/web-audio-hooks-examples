@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link as ReachLink } from '@reach/router';
+import { Link } from '@reach/router';
+import styled from 'styled-components';
 
 import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
 
 import MiniSynthesizer from './MiniSynthesizer';
 import UserAudioStream from './UserAudioStream';
@@ -23,7 +23,15 @@ export const PAGES = [
   },
 ];
 
-export default function () {
+const StyledLink = styled(Link)`
+  :active,
+  :focus,
+  :visited {
+    color: hotpink;
+  }
+`;
+
+export default function Index() {
   return (
     <div
       style={{
@@ -42,16 +50,16 @@ export default function () {
         }}
       >
         {PAGES.map(({ path, subtitle, title }) => (
-          <ReachLink key={path} to={path}>
+          <StyledLink key={path} to={path}>
             <Box p={4}>
-              <Link>
-                <Typography variant="h2">{title}</Typography>
-              </Link>
+              <Typography color="primary" variant="h2">
+                {title}
+              </Typography>
               <Typography color="secondary" variant="h3">
                 {subtitle}
               </Typography>
             </Box>
-          </ReachLink>
+          </StyledLink>
         ))}
       </div>
     </div>

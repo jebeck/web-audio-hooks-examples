@@ -9,12 +9,18 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "@xstate/react": "^0.8.1",
     "bows": "^1.7.2",
+    "immer-reducer": "^0.7.10",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "react-use-measure": "^2.0.0",
-    "web-audio-hooks": "file:.yalc/web-audio-hooks"
+    "styled-components": "^5.1.0",
+    "teoria": "^2.5.0",
+    "uuid": "^8.0.0",
+    "web-audio-hooks": "file:.yalc/web-audio-hooks",
+    "xstate": "^4.9.1"
   },
   "devDependencies": {
     "husky": "^4.2.5",
