@@ -1,10 +1,12 @@
 import React from 'react';
-import { Link } from '@reach/router';
+import { Link as ReachLink } from '@reach/router';
 
 import Box from '@material-ui/core/Box';
+import Link from '@material-ui/core/Link';
 
 import MiniSynthesizer from './MiniSynthesizer';
 import UserAudioStream from './UserAudioStream';
+import { Typography } from '@material-ui/core';
 
 export const PAGES = [
   {
@@ -16,7 +18,7 @@ export const PAGES = [
   {
     Component: UserAudioStream,
     path: '/user',
-    title: 'the browser plays your audio back to you',
+    title: 'the browser shows you your audio',
     subtitle: 'beware the feedback monster',
   },
 ];
@@ -40,12 +42,16 @@ export default function () {
         }}
       >
         {PAGES.map(({ path, subtitle, title }) => (
-          <Link key={path} to={path}>
+          <ReachLink key={path} to={path}>
             <Box p={4}>
-              <h2>{title}</h2>
-              <h3>{subtitle}</h3>
+              <Link>
+                <Typography variant="h2">{title}</Typography>
+              </Link>
+              <Typography color="secondary" variant="h3">
+                {subtitle}
+              </Typography>
             </Box>
-          </Link>
+          </ReachLink>
         ))}
       </div>
     </div>

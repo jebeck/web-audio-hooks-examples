@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "web-audio-hooks": {
-      "signature": "511547ed3b61eb82702e824bddfa665d",
+      "signature": "cf9ac10e62524fb05b8f02c374e2c0d2",
       "file": true
     }
   }
