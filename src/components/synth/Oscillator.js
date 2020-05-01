@@ -14,6 +14,7 @@ const WAVEFORMS = ['sine', 'square', 'sawtooth', 'triangle'];
 
 export default function Oscillator({
   audioCtx,
+  destination,
   dispatch,
   frequency,
   gain = 0.25,
@@ -21,7 +22,7 @@ export default function Oscillator({
   voiceIdx,
   waveform,
 }) {
-  const { getGain } = useGain({ audioCtx, gain });
+  const { getGain } = useGain({ audioCtx, destination, gain });
   useOscillator({
     audioCtx,
     destination: getGain(),
