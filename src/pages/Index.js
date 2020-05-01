@@ -13,7 +13,7 @@ export const PAGES = [
     Component: MiniSynthesizer,
     path: '/synth',
     title: 'mini Web Audio synth',
-    subtitle: 'virtual knobs for cool cats',
+    subtitle: 'virtual "knobs" for cool cats',
   },
   {
     Component: UserAudioStream,
@@ -31,7 +31,7 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export default function Index() {
+export default function Index({ headerBounds }) {
   return (
     <div
       style={{
@@ -39,7 +39,7 @@ export default function Index() {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        height: '100vh',
+        minHeight: `calc(100vh - ${headerBounds.bottom}px - 1rem)`,
         width: '65vw',
       }}
     >

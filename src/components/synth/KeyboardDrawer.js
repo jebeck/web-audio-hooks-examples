@@ -11,11 +11,14 @@ import PlayToggle from '../PlayToggle';
 
 export default function KeyboardDrawer({ ...playControls }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+
   return (
-    <Box bottom={0} boxShadow={1} position="fixed" width="100%">
+    <Box bottom={0} boxShadow={1} p={2} position="fixed" width="100%">
       <Button
+        color="primary"
         onClick={() => setDrawerOpen(!drawerOpen)}
         startIcon={<OpenInBrowserTwoToneIcon />}
+        variant="outlined"
       >
         open keyboard
       </Button>

@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import { initialState, synthReducer } from '../synthReducer';
 import KeyboardDrawer from '../components/synth/KeyboardDrawer';
 import Layout from '../components/Layout';
-import PlayToggle from '../components/PlayToggle';
 import Voice from '../components/synth/Voice';
 
 export default function MiniSynthesizer({ headerBounds }) {
@@ -20,9 +19,9 @@ export default function MiniSynthesizer({ headerBounds }) {
         alignItems="center"
         display="flex"
         flexDirection="column"
-        height="100%"
         justifyContent="center"
         margin="0 auto"
+        minHeight="inherit"
         position="relative"
         width="75%"
       >

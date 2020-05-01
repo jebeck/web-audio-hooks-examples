@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Router } from '@reach/router';
 import useMeasure from 'react-use-measure';
 
+import Box from '@material-ui/core/Box';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -34,27 +35,26 @@ export default function App() {
 
   return (
     <MuiThemeProvider theme={theme}>
-      <Typography
-        color="secondary"
-        ref={headerRef}
-        style={{
-          fontStyle: 'italic',
-          fontWeight: 'bold',
-          marginTop: '-0.5rem',
-          position: 'fixed',
-          top: 0,
-          right: 0,
-          textDecoration: `${
-            theme.palette.primary[prefersDarkMode ? 'dark' : 'light']
-          } double underline`,
-        }}
-        variant="h1"
-      >
-        using web audio hooks
-      </Typography>
+      <Box boxShadow={1} boxSizing="border-box" p={4} ref={headerRef}>
+        <Typography
+          color="secondary"
+          style={{
+            fontStyle: 'italic',
+            fontWeight: 'bold',
+            marginTop: '-0.5rem',
+            textAlign: 'right',
+            textDecoration: `${
+              theme.palette.primary[prefersDarkMode ? 'dark' : 'light']
+            } double underline`,
+          }}
+          variant="h1"
+        >
+          using web audio hooks
+        </Typography>
+      </Box>
       <CssBaseline />
       <Router>
-        <Index default />
+        <Index default headerBounds={headerBounds} />
         {PAGES.map(({ Component, path }) => (
           <Component headerBounds={headerBounds} key={path} path={path} />
         ))}
