@@ -3,9 +3,8 @@ import React, { useReducer, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
-import { Keyboard } from 'web-audio-hooks/dist/lib/index';
-
 import { initialState, synthReducer } from '../synthReducer';
+import KeyboardDrawer from '../components/synth/KeyboardDrawer';
 import Layout from '../components/Layout';
 import PlayToggle from '../components/PlayToggle';
 import Voice from '../components/synth/Voice';
@@ -34,14 +33,6 @@ export default function MiniSynthesizer({ headerBounds }) {
         >
           sculpt a sound
         </Typography>
-        <div style={{ alignSelf: 'flex-start' }}>
-          <PlayToggle
-            isCurrentlyPlaying={isPlaying}
-            pause={() => setPlaying(false)}
-            play={() => setPlaying(true)}
-          />
-        </div>
-        <Keyboard style={{ alignSelf: 'flex-end' }} />
         {voices
           ? voices.map((props, idx) => (
               <Voice
@@ -54,6 +45,11 @@ export default function MiniSynthesizer({ headerBounds }) {
               />
             ))
           : null}
+        <KeyboardDrawer
+          isCurrentlyPlaying={isPlaying}
+          pause={() => setPlaying(false)}
+          play={() => setPlaying(true)}
+        />
       </Box>
     </Layout>
   );
