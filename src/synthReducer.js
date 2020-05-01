@@ -26,7 +26,7 @@ class SynthReducer extends ImmerReducer {
     this.draftState.voices[voiceIdx].oscillators.push(makeOscillator());
   }
   addVoice() {
-    this.draftState.voices.push([makeOscillator()]);
+    this.draftState.voices.push(makeVoice());
   }
   editOscillator(voiceIdx, oscIdx, key, val) {
     this.draftState.voices[voiceIdx].oscillators[oscIdx][key] = val;

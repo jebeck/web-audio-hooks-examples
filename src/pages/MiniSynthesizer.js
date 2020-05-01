@@ -1,12 +1,14 @@
 import React, { useReducer, useState } from 'react';
 
+import AddIcon from '@material-ui/icons/Add';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
-import { initialState, synthReducer } from '../synthReducer';
+import { actions, initialState, synthReducer } from '../synthReducer';
 import KeyboardDrawer from '../components/synth/KeyboardDrawer';
 import Layout from '../components/Layout';
 import Voice from '../components/synth/Voice';
+import { Button } from '@material-ui/core';
 
 export default function MiniSynthesizer({ headerBounds }) {
   const [isPlaying, setPlaying] = useState(false);
@@ -44,6 +46,19 @@ export default function MiniSynthesizer({ headerBounds }) {
               />
             ))
           : null}
+        <Box alignSelf="flex-end" p={4}>
+          <Button
+            color="primary"
+            onClick={() => {
+              dispatch(actions.addVoice());
+            }}
+            size="large"
+            startIcon={<AddIcon />}
+            variant="contained"
+          >
+            voice
+          </Button>
+        </Box>
         <KeyboardDrawer
           isCurrentlyPlaying={isPlaying}
           pause={() => setPlaying(false)}
