@@ -20,6 +20,7 @@
     "teoria": "^2.5.0",
     "uuid": "^8.0.0",
     "web-audio-hooks": "file:.yalc/web-audio-hooks",
+    "webmidi": "^2.5.1",
     "xstate": "^4.9.1"
   },
   "devDependencies": {
