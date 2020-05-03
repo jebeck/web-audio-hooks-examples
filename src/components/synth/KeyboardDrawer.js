@@ -4,16 +4,27 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
 import OpenInBrowserTwoToneIcon from '@material-ui/icons/OpenInBrowserTwoTone';
+import { useTheme } from '@material-ui/core/styles';
 
 import { Keyboard } from 'web-audio-hooks/dist/lib/index';
 
 import PlayToggle from '../PlayToggle';
 
 export default function KeyboardDrawer({ ...playControls }) {
+  const theme = useTheme();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <Box bottom={0} boxShadow={1} p={2} position="fixed" width="100%">
+    <Box
+      bottom={0}
+      boxShadow={3}
+      left={0}
+      p={2}
+      position="fixed"
+      style={{
+        backgroundColor: theme?.palette?.background?.default,
+      }}
+    >
       <Box display="flex">
         <PlayToggle {...playControls} />
         <Box ml={2}>
