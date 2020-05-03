@@ -6,14 +6,26 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import { Oscilloscope } from 'web-audio-hooks/dist/lib/index';
-import { useAnalyser, useAudioContext } from 'web-audio-hooks';
+import { useAnalyser, useAudioContext, useFilter } from 'web-audio-hooks';
 
 import { actions } from '../../synthReducer';
+import FilterOptions from './FilterOptions';
 import Oscillator from './Oscillator';
 
-export default function Voice({ dispatch, idx, isPlaying, oscillators }) {
+export default function Voice({
+  dispatch,
+  filter,
+  idx,
+  isPlaying,
+  oscillators,
+}) {
   const { audioCtx, isCurrentlyPlaying, pause, play } = useAudioContext();
   const { analyserNode } = useAnalyser({ audioCtx });
+  const { filterNode } = useFilter({
+    audioCtx,
+    destination: analyserNode,
+    ...filter,
+  });
 
   useEffect(() => {
     if (isPlaying && !isCurrentlyPlaying) {
@@ -42,7 +54,7 @@ export default function Voice({ dispatch, idx, isPlaying, oscillators }) {
           {oscillators.map(({ frequency, gain, id, waveform }, j) => (
             <Oscillator
               audioCtx={audioCtx}
-              destination={analyserNode}
+              destination={filterNode || analyserNode}
               dispatch={dispatch}
               frequency={frequency}
               gain={gain}
@@ -52,6 +64,12 @@ export default function Voice({ dispatch, idx, isPlaying, oscillators }) {
               waveform={waveform}
             />
           ))}
+          <FilterOptions
+            dispatch={dispatch}
+            filterNode={filterNode}
+            filterState={filter}
+            voiceIdx={idx}
+          />
           <div>
             <Button
               color="secondary"

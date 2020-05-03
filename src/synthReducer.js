@@ -5,6 +5,14 @@ import {
 } from 'immer-reducer';
 import { v4 as id } from 'uuid';
 
+import { getFilterDefaultsByType } from 'web-audio-hooks';
+
+function makeFilter() {
+  return {
+    type: null,
+  };
+}
+
 function makeOscillator() {
   return {
     gain: undefined,
@@ -14,7 +22,7 @@ function makeOscillator() {
 }
 
 function makeVoice() {
-  return { id: id(), oscillators: [makeOscillator()] };
+  return { filter: makeFilter(), id: id(), oscillators: [makeOscillator()] };
 }
 
 export const initialState = {
@@ -22,14 +30,27 @@ export const initialState = {
 };
 
 class SynthReducer extends ImmerReducer {
+  addFilter(voiceIdx, type) {
+    this.draftState.voices[voiceIdx].filter = Object.assign(
+      {},
+      { type },
+      getFilterDefaultsByType(type)
+    );
+  }
   addOscillator(voiceIdx) {
     this.draftState.voices[voiceIdx].oscillators.push(makeOscillator());
   }
   addVoice() {
     this.draftState.voices.push(makeVoice());
   }
+  editFilter(voiceIdx, key, val) {
+    this.draftState.voices[voiceIdx].filter[key] = val;
+  }
   editOscillator(voiceIdx, oscIdx, key, val) {
     this.draftState.voices[voiceIdx].oscillators[oscIdx][key] = val;
+  }
+  removeFilter(voiceIdx) {
+    this.draftState.voices[voiceIdx].filter = makeFilter();
   }
   removeOscillator(voiceIdx, oscIdx) {
     if (this.draftState.voices[voiceIdx].length > 1) {
