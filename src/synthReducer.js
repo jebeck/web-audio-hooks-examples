@@ -22,7 +22,12 @@ function makeOscillator() {
 }
 
 function makeVoice() {
-  return { filter: makeFilter(), id: id(), oscillators: [makeOscillator()] };
+  return {
+    delay: { delayTime: 0 },
+    filter: makeFilter(),
+    id: id(),
+    oscillators: [makeOscillator()],
+  };
 }
 
 export const initialState = {
@@ -42,6 +47,9 @@ class SynthReducer extends ImmerReducer {
   }
   addVoice() {
     this.draftState.voices.push(makeVoice());
+  }
+  editDelay(voiceIdx, delayTime) {
+    this.draftState.voices[voiceIdx].delay.delayTime = delayTime;
   }
   editFilter(voiceIdx, key, val) {
     this.draftState.voices[voiceIdx].filter[key] = val;

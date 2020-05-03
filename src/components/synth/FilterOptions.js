@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Box from '@material-ui/core/Box';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 
@@ -15,7 +14,7 @@ export default function FilterOptions({
   voiceIdx,
 }) {
   return (
-    <Box display="flex" flexDirection="column">
+    <>
       <TextField
         helperText="add a filter"
         label="filter"
@@ -129,6 +128,6 @@ export default function FilterOptions({
           variant="outlined"
         />
       ) : null}
-    </Box>
+    </>
   );
 }

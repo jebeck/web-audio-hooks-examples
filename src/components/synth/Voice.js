@@ -3,16 +3,24 @@ import React, { useEffect } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
 
 import { Oscilloscope } from 'web-audio-hooks/dist/lib/index';
-import { useAnalyser, useAudioContext, useFilter } from 'web-audio-hooks';
+import {
+  useAnalyser,
+  useAudioContext,
+  useDelay,
+  useFilter,
+} from 'web-audio-hooks';
 
 import { actions } from '../../synthReducer';
 import FilterOptions from './FilterOptions';
 import Oscillator from './Oscillator';
+import { TextField } from '@material-ui/core';
 
 export default function Voice({
+  delay,
   dispatch,
   filter,
   idx,
@@ -21,9 +29,14 @@ export default function Voice({
 }) {
   const { audioCtx, isCurrentlyPlaying, pause, play } = useAudioContext();
   const { analyserNode } = useAnalyser({ audioCtx });
-  const { filterNode } = useFilter({
+  const { delayNode } = useDelay({
     audioCtx,
     destination: analyserNode,
+    ...delay,
+  });
+  const { filterNode } = useFilter({
+    audioCtx,
+    destination: delayNode,
     ...filter,
   });
 
@@ -54,7 +67,7 @@ export default function Voice({
           {oscillators.map(({ frequency, gain, id, waveform }, j) => (
             <Oscillator
               audioCtx={audioCtx}
-              destination={filterNode || analyserNode}
+              destination={filterNode || delayNode || analyserNode}
               dispatch={dispatch}
               frequency={frequency}
               gain={gain}
@@ -64,12 +77,31 @@ export default function Voice({
               waveform={waveform}
             />
           ))}
-          <FilterOptions
-            dispatch={dispatch}
-            filterNode={filterNode}
-            filterState={filter}
-            voiceIdx={idx}
-          />
+
+          <Box display="flex" flexDirection="column">
+            <TextField
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">seconds</InputAdornment>
+                ),
+              }}
+              helperText="add delay"
+              label="delay"
+              onChange={(e) => {
+                dispatch(actions.editDelay(idx, e?.target?.value));
+              }}
+              size="small"
+              type="number"
+              value={delay?.delayTime || 0}
+              variant="outlined"
+            />
+            <FilterOptions
+              dispatch={dispatch}
+              filterNode={filterNode}
+              filterState={filter}
+              voiceIdx={idx}
+            />
+          </Box>
           <div>
             <Button
               color="secondary"
