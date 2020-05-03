@@ -14,14 +14,20 @@ export default function KeyboardDrawer({ ...playControls }) {
 
   return (
     <Box bottom={0} boxShadow={1} p={2} position="fixed" width="100%">
-      <Button
-        color="primary"
-        onClick={() => setDrawerOpen(!drawerOpen)}
-        startIcon={<OpenInBrowserTwoToneIcon />}
-        variant="outlined"
-      >
-        open keyboard
-      </Button>
+      <Box display="flex">
+        <PlayToggle {...playControls} />
+        <Box ml={2}>
+          <Button
+            color="secondary"
+            onClick={() => setDrawerOpen(!drawerOpen)}
+            size="large"
+            startIcon={<OpenInBrowserTwoToneIcon />}
+            variant="outlined"
+          >
+            open keyboard
+          </Button>
+        </Box>
+      </Box>
       <Drawer
         anchor="bottom"
         onClose={() => setDrawerOpen(false)}

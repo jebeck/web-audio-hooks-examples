@@ -17,6 +17,7 @@ export default function PlayToggle({ isCurrentlyPlaying, pause, play }) {
       }}
       size="large"
       startIcon={isCurrentlyPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+      style={{ minWidth: '15ch' }}
       variant="outlined"
     >
       {isCurrentlyPlaying ? 'pause' : 'play'}
