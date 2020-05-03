@@ -11,16 +11,9 @@ import { useAnalyser, useAudioContext } from 'web-audio-hooks';
 import { actions } from '../../synthReducer';
 import Oscillator from './Oscillator';
 
-export default function Voice({
-  dispatch,
-  frequency,
-  id,
-  idx,
-  isPlaying,
-  oscillators,
-}) {
-  const { getContext, isCurrentlyPlaying, pause, play } = useAudioContext();
-  const { getAnalyser } = useAnalyser({ audioCtx: getContext() });
+export default function Voice({ dispatch, idx, isPlaying, oscillators }) {
+  const { audioCtx, isCurrentlyPlaying, pause, play } = useAudioContext();
+  const { analyserNode } = useAnalyser({ audioCtx });
 
   useEffect(() => {
     if (isPlaying && !isCurrentlyPlaying) {
@@ -33,7 +26,7 @@ export default function Voice({
   return (
     <Box boxShadow={1} display="flex" mt={2} p={2}>
       <Box p={2}>
-        <Oscilloscope absolute={false} analyser={getAnalyser()} />
+        <Oscilloscope absolute={false} analyser={analyserNode} />
       </Box>
       <Box>
         <Typography
@@ -48,8 +41,8 @@ export default function Voice({
         >
           {oscillators.map(({ frequency, gain, id, waveform }, j) => (
             <Oscillator
-              audioCtx={getContext()}
-              destination={getAnalyser()}
+              audioCtx={audioCtx}
+              destination={analyserNode}
               dispatch={dispatch}
               frequency={frequency}
               gain={gain}

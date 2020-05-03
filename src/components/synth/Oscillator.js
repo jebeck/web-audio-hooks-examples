@@ -22,10 +22,10 @@ export default function Oscillator({
   voiceIdx,
   waveform,
 }) {
-  const { getGain } = useGain({ audioCtx, destination, gain });
+  const { gainNode } = useGain({ audioCtx, destination, gain });
   useOscillator({
     audioCtx,
-    destination: getGain(),
+    destination: gainNode,
     frequency,
     type: waveform,
   });

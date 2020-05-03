@@ -2,13 +2,13 @@ import React, { useReducer, useState } from 'react';
 
 import AddIcon from '@material-ui/icons/Add';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import { actions, initialState, synthReducer } from '../synthReducer';
 import KeyboardDrawer from '../components/synth/KeyboardDrawer';
 import Layout from '../components/Layout';
 import Voice from '../components/synth/Voice';
-import { Button } from '@material-ui/core';
 
 export default function MiniSynthesizer({ headerBounds }) {
   const [isPlaying, setPlaying] = useState(false);

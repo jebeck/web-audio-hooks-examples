@@ -10,9 +10,9 @@ import Layout from '../components/Layout';
 import PlayToggle from '../components/PlayToggle';
 
 export default function UserAudioStream({ headerBounds }) {
-  const { getContext, ...ctxControls } = useAudioContext();
-  const { getAnalyser } = useAnalyser({ audioCtx: getContext() });
-  useAudioStream({ audioCtx: getContext(), destination: getAnalyser() });
+  const { audioCtx, ...ctxControls } = useAudioContext();
+  const { analyserNode } = useAnalyser({ audioCtx });
+  useAudioStream({ audioCtx, destination: analyserNode });
 
   return (
     <Layout headerBounds={headerBounds}>
@@ -34,7 +34,7 @@ export default function UserAudioStream({ headerBounds }) {
         <div style={{ alignSelf: 'flex-end' }}>
           <Oscilloscope
             absolute={false}
-            analyser={getAnalyser()}
+            analyser={analyserNode}
             height={360}
             position={{ right: '1rem', top: '1rem' }}
             width={640}
