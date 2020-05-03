@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Box from '@material-ui/core/Box';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
 import OpenInBrowserTwoToneIcon from '@material-ui/icons/OpenInBrowserTwoTone';
 
