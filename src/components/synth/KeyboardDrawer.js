@@ -10,7 +10,12 @@ import { Keyboard } from 'web-audio-hooks/dist/lib/index';
 
 import PlayToggle from '../PlayToggle';
 
-export default function KeyboardDrawer({ ...playControls }) {
+export default function KeyboardDrawer({
+  notes,
+  onKeydown,
+  onKeyup,
+  ...playControls
+}) {
   const theme = useTheme();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -48,7 +53,7 @@ export default function KeyboardDrawer({ ...playControls }) {
           <PlayToggle {...playControls} />
         </Box>
         <Box display="flex" justifyContent="flex-end" p={2}>
-          <Keyboard />
+          <Keyboard onKeydown={onKeydown} onKeyup={onKeyup} notes={notes} />
         </Box>
       </Drawer>
     </Box>
