@@ -25,6 +25,7 @@ export default function Voice({
   filter,
   idx,
   isPlaying,
+  note,
   oscillators,
 }) {
   const { audioCtx, isCurrentlyPlaying, pause, play } = useAudioContext();
@@ -73,6 +74,7 @@ export default function Voice({
               gain={gain}
               idx={j}
               key={id}
+              note={note}
               voiceIdx={idx}
               waveform={waveform}
             />

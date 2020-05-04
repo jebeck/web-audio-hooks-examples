@@ -51,6 +51,7 @@ export default function MiniSynthesizer({ headerBounds }) {
                 idx={idx}
                 isPlaying={isPlaying}
                 key={props.id}
+                note={keyboardState?.context?.notes?.[idx]}
                 playing={isPlaying}
                 {...props}
               />

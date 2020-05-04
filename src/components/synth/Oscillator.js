@@ -1,4 +1,5 @@
 import React from 'react';
+import teoria from 'teoria';
 
 import Box from '@material-ui/core/Box';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -19,6 +20,7 @@ export default function Oscillator({
   frequency,
   gain = 0.25,
   idx,
+  note,
   voiceIdx,
   waveform,
 }) {
@@ -26,7 +28,9 @@ export default function Oscillator({
   useOscillator({
     audioCtx,
     destination: gainNode,
-    frequency,
+    frequency: note ? teoria.note.fromString(note).fq() : undefined,
+    /** this weirdness of passing {} or undefined is in lieu of a proper envelope rn */
+    note: note ? {} : undefined,
     type: waveform,
   });
 
