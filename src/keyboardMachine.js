@@ -2,37 +2,48 @@ import { assign, Machine } from 'xstate';
 
 const keyboardMachine = Machine(
   {
-    initial: 'inert',
-    context: { notes: [] },
+    initial: 'initialized',
+    context: { maxNotes: null, notes: [] },
     states: {
-      inert: {
+      initialized: {
         on: {
-          KEYDOWN: {
-            actions: assign({ notes: (_, { value }) => [..._.notes, value] }),
-            target: 'playing',
+          UPDATE_MAX_NOTES: {
+            actions: 'updateMaxNotes',
+            target: 'initialized.inert',
           },
         },
-      },
-      playing: {
-        on: {
-          KEYDOWN: {
-            actions: assign({ notes: (_, { value }) => [..._.notes, value] }),
+        initial: 'inert',
+        states: {
+          inert: {
+            on: {
+              KEYDOWN: {
+                actions: 'addNote',
+                target: 'playing',
+              },
+            },
           },
-          KEYUP: [
-            {
-              actions: 'removeNote',
-              target: 'inert',
-              cond: 'notesEmpty',
+          playing: {
+            on: {
+              KEYDOWN: {
+                actions: 'addNote',
+              },
+              KEYUP: [
+                {
+                  actions: 'removeNote',
+                  target: 'inert',
+                  cond: 'notesEmpty',
+                },
+                {
+                  actions: 'removeNote',
+                  target: 'playing',
+                  cond: 'notesRemaining',
+                },
+              ],
+              RESET: {
+                actions: 'removeAllNotes',
+                target: 'inert',
+              },
             },
-            {
-              actions: 'removeNote',
-              target: 'playing',
-              cond: 'notesRemaining',
-            },
-          ],
-          RESET: {
-            actions: assign({ notes: () => [] }),
-            target: 'inert',
           },
         },
       },
@@ -40,9 +51,20 @@ const keyboardMachine = Machine(
   },
   {
     actions: {
+      addNote: assign({
+        notes: (_, { value }) => {
+          const newNotes = [..._.notes, value];
+          if (newNotes.length > _.maxNotes) {
+            newNotes.splice(0, newNotes.length - _.maxNotes);
+          }
+          return newNotes;
+        },
+      }),
+      removeAllNotes: assign({ notes: () => [] }),
       removeNote: assign({
         notes: (_, { value }) => _.notes.filter((note) => note !== value),
       }),
+      updateMaxNotes: assign({ maxNotes: (_, { value }) => value }),
     },
     guards: {
       notesEmpty: (_, { value }) =>

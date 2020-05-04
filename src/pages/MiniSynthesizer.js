@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { useMachine } from '@xstate/react';
 
 import AddIcon from '@material-ui/icons/Add';
@@ -14,9 +14,16 @@ import Voice from '../components/synth/Voice';
 
 export default function MiniSynthesizer({ headerBounds }) {
   const [isPlaying, setPlaying] = useState(false);
-  const [keyboardState, send] = useMachine(keyboardMachine, { devTools: true });
   const [synthState, dispatch] = useReducer(synthReducer, initialState);
+
   const { voices } = synthState;
+  const [keyboardState, send] = useMachine(keyboardMachine, {
+    devTools: true,
+  });
+
+  useEffect(() => {
+    send({ type: 'UPDATE_MAX_NOTES', value: voices?.length });
+  }, [send, voices]);
 
   return (
     <Layout headerBounds={headerBounds}>
